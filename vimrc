@@ -452,7 +452,7 @@ nmap <leader>ff :set invfullscreen<CR>
 nmap <leader>V :vsplit<CR><C-w><C-w>:e $MYVIMRC<CR>
 
 " If I forgot to sudo a file, do that with :w!!
-cmap w!! %!sudo tee > /dev/null %
+cmap w!! w !sudo tee % > /dev/null
 
 " Close all the buffers
 map <leader>ba :1,300 bd!<cr>
