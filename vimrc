@@ -348,6 +348,9 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.inc set ft=php
   autocmd BufRead,BufNewFile *tpl.inc set ft=xhtml.php syntax=php
 
+  " PHP
+  autocmd FileType php set kp=phpdoc
+
   " only UNIX line endings.
   autocmd BufNewFile *.* set fileformat=unix
 
