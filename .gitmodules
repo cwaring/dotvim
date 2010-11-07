@@ -91,6 +91,3 @@
 [submodule "bundle/vim-zencoding"]
 	path = bundle/vim-zencoding
 	url = git://github.com/bdtomlin/zencoding-vim.git
-[submodule "bundle/vim-jquery"]
-	path = bundle/vim-jquery
-	url = git://github.com/bronson/vim-jquery.git
