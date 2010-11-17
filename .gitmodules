@@ -94,3 +94,6 @@
 [submodule "bundle/vim-css"]
 	path = bundle/vim-css
 	url = git://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
+[submodule "bundle/vim-rails"]
+	path = bundle/vim-rails
+	url = git://github.com/tpope/vim-rails.git
