@@ -7,6 +7,12 @@ silent! call pathogen#helptags()
 silent! call pathogen#runtime_append_all_bundles()
 
 set nocompatible            " Must come first because it changes other options.
+set cpoptions=aABceFsmq
+set autochdir
+set nostartofline " don't jump to the first character when paging
+set title
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set ttyfast
 let mapleader = ','
 let g:mapleader = ','
 let localleader = ','
@@ -57,6 +63,7 @@ au InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Saving sessions
 set sessionoptions=buffers,folds,tabpages
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEXT EDITING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,15 +72,15 @@ set wildmenu
 set wildmode=list:longest,full
 set wildignore+=*.o,*~,.lo,*.pyc,*.bak,*.jpg,*.png,*.gif
 set whichwrap=b,s,h,l,<,>,~,[,] "everything wraps
-set undolevels=1000
+set undolevels=5000
 set autoindent
 set preserveindent
 set nosmartindent
 set smarttab
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set wrap
 set formatoptions=lcroqwan2vb1
 set showmatch
@@ -85,7 +92,7 @@ set showbreak=…
 set encoding=utf-8 fileencodings=.
 set showfulltag
 set completeopt=longest,menuone,preview
-set ts=2 sts=2 sw=2
+set iskeyword+=_,-,.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FOLDS
@@ -284,6 +291,7 @@ ia eslf     self
 set incsearch   " do incremental searching
 set gdefault
 set ignorecase
+set smartcase
 set infercase
 set hlsearch
 set showmatch
@@ -300,10 +308,9 @@ cno $q <C-\>eDeleteTilSlash()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETTINGS PER FILETYPE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("autocmd")
-  " Enable file type detection
-  filetype plugin indent on
+filetype plugin indent on
 
+if has("autocmd")
   " Syntax of these languages is fussy over tabs Vs spaces
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
