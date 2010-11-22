@@ -90,7 +90,7 @@
 	url = git://github.com/chrismetcalf/vim-yankring.git
 [submodule "bundle/vim-zencoding"]
 	path = bundle/vim-zencoding
-	url = git://github.com/bdtomlin/zencoding-vim.git
+	url = git://github.com/mattn/zencoding-vim.git
 [submodule "bundle/vim-css"]
 	path = bundle/vim-css
 	url = git://github.com/vim-scripts/Better-CSS-Syntax-for-Vim.git
