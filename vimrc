@@ -709,6 +709,11 @@ let g:syntastic_disabled_filetypes = ['htmldjango', 'txt', 'text', 'tumblr', 'cs
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gc :Gcommit<CR>
 
+" ZEN CODING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:user_zen_expandabbr_key = '<c-e>'
+let g:use_zen_complete_tag = 1
+
 " SCRATCH BUFFER
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:ToggleScratch()
