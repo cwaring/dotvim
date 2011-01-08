@@ -404,7 +404,7 @@ endif
 " KEY MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Omnicompletion keymappings
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<Down>" : ""<CR>'
 
@@ -413,12 +413,6 @@ map <Leader>cd :cd %:p:h<CR>
 
 " Grep/QuickFix window bindings
 map <Leader>c :botright cw 10<CR>
-
-" Don't move around in Insert mode
-inoremap <Left> <Esc><Right><Left>
-inoremap <Right> <Esc><Right><Right>
-inoremap <Up> <Esc><Right><Up>
-inoremap <Down> <Esc><Right><Down>
 
 " Easily move chunks of text
 nnoremap <A-j> :m+<CR>==
