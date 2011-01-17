@@ -26,7 +26,6 @@ let g:leader = ','
 set ruler
 set showcmd
 set laststatus=2
-filetype plugin indent on
 set winminheight=0
 set winminwidth=0
 set winheight=10
@@ -55,7 +54,6 @@ set noea
 set shortmess=aOstTI " shortens messages to avoid 'press a key' prompt
 set magic
 set viminfo='10,\"100,:20,%,n~/.viminfo
-
 set report=0
 set smartcase
 au CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -308,7 +306,8 @@ cno $q <C-\>eDeleteTilSlash()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETTINGS PER FILETYPE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin indent on
+filetype plugin on
+filetype indent on
 
 if has("autocmd")
   " Syntax of these languages is fussy over tabs Vs spaces
@@ -321,10 +320,6 @@ if has("autocmd")
 
   " Treat .rss files as XML
   autocmd BufNewFile,BufRead *.rss setfiletype xml
-
-  " Automatically strip extraneous whitespace when saving Python or
-  " Javascript files.
-  autocmd BufWritePre *.py,*.js :call <SID>StripTrailingWhitespaces()
 
   " markdown
   augroup mkd
@@ -495,7 +490,7 @@ nnoremap <silent> \ :noh<CR>
 " CommandT browser
 nmap <silent> <Leader>o :CommandT<CR>
 
-" Folds
+""" Folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
 " set <space> to toggle folds in normal & visual modes
 nnoremap <space> za
@@ -556,6 +551,71 @@ nnoremap <F4> :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType='<c-x><c-o>'
 let g:SuperTabMappingTabLiteral='<a-tab>'
+
+" Neocomplcache
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+
+let g:neocomplcache_auto_completion_start_length = 3
+let g:neocomplcache_manual_completion_start_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" snippets expand key
+imap  <silent><expr><TAB>  neocomplcache#plugin#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<C-e>" : "\<TAB>")
+"imap  <silent><expr><TAB>  neocomplcache#plugin#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-e>"
+smap  <TAB>  <RIGHT><Plug>(neocomplcache_snippets_jump)
+inoremap <expr><C-e>     neocomplcache#complete_common_string(
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 " XPTemplates
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -670,7 +730,7 @@ let g:yankring_window_increment = 15
 let g:yankring_manage_numbered_reg = 1
 
 " keep the history file in the $HOME/.vim folder instead of $HOME
-let g:yankring_history_dir = '$HOME/.vim'
+let g:yankring_history_dir = '/tmp'
 
 " yankring keeps an eye on the clipboard
 let g:yankring_clipboard_monitor = 1
@@ -744,6 +804,17 @@ map <Leader>m :MiniBufExplorer<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FUNCTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" TOGGLE LINE NUMBER MODE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! g:ToggleNuMode()
+    if (&rnu == 1)
+        set nu
+    else
+        set rnu
+    endif
+endfunc
+nnoremap <leader>l :call g:ToggleNuMode()<CR>
 
 " Custom Fold Method
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -906,41 +977,41 @@ endfunc
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  " GUI Stuff
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GUI Stuff
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-  if has("gui_macvim")
-    "set guifont=EspressoMono-Regular:h12            " Font family and font size.
-    set guifont=Inconsolata:h14
-    "set guifont=menlo:h12
-    set fuoptions=maxvert,maxhorz     " fullscreen maximizes vertically AND horizontally
-    set antialias                     " MacVim: smooth fonts.
-    set encoding=utf-8                " Use UTF-8 everywhere.
-    set guioptions-=T                 " Hide toolbar.
+if has("gui_macvim")
+  "set guifont=EspressoMono-Regular:h12            " Font family and font size.
+  set guifont=Inconsolata:h14
+  "set guifont=menlo:h12
+  set fuoptions=maxvert,maxhorz     " fullscreen maximizes vertically AND horizontally
+  set antialias                     " MacVim: smooth fonts.
+  set encoding=utf-8                " Use UTF-8 everywhere.
+  set guioptions-=T                 " Hide toolbar.
 
-    "set lines=45 columns=145          " Window dimensions.
-    set guioptions+=e
-    set guioptions-=r                 " Don't show right scrollbar
-    set guioptions-=R                 " Don't show right scrollbar
-    set guioptions-=l                 " Don't show left scrollbar
-    set guioptions-=L                 " Don't show left scrollbar
+  "set lines=45 columns=145          " Window dimensions.
+  set guioptions+=e
+  set guioptions-=r                 " Don't show right scrollbar
+  set guioptions-=R                 " Don't show right scrollbar
+  set guioptions-=l                 " Don't show left scrollbar
+  set guioptions-=L                 " Don't show left scrollbar
 
-    "macmenu &File.New\ Tab key=<nop>
-    map <D-d> :CommandT<CR>
-    set transparency=5
-    set formatoptions-=tc
-    let macvim_hig_shift_movement = 1
-    colorscheme darkspectrum
+  "macmenu &File.New\ Tab key=<nop>
+  map <D-d> :CommandT<CR>
+  set transparency=5
+  set formatoptions-=tc
+  let macvim_hig_shift_movement = 1
+  colorscheme darkspectrum
 
-    " bind command-] to shift right
-    nmap <D-]> >>
-    vmap <D-]> >>
-    imap <D-]> <C-O>>>
+  " bind command-] to shift right
+  nmap <D-]> >>
+  vmap <D-]> >>
+  imap <D-]> <C-O>>>
 
-    " bind command-[ to shift left
-    nmap <D-[> <<
-    vmap <D-[> <<
-    imap <D-[> <C-O><<
-  endif
+  " bind command-[ to shift left
+  nmap <D-[> <<
+  vmap <D-[> <<
+  imap <D-[> <C-O><<
+endif
 
