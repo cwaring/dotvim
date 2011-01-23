@@ -90,6 +90,7 @@ set showbreak=…
 set encoding=utf-8 fileencodings=.
 set showfulltag
 set completeopt=longest,menuone,preview
+set complete=.,w,b,u,t,i
 set iskeyword+=_,-,.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -649,10 +650,7 @@ let g:easytags_cmd = '/usr/local/bin/ctags'
 set tags=tags;/
 
 " Add RebuildTags function/command
-function! s:RebuildTagsFile()
-  !/usr/local/bin/ctags --langmap=php:.engine.inc.module.theme.php --php-kinds=cdfi --languages=php --recurse --exclude="\.git" --totals=yes --extra=+q
-endfunction
-command! -nargs=0 RebuildTags call s:RebuildTagsFile()
+map <Leader>rt :!/usr/local/bin/ctags --langmap=php:.engine.inc.module.theme.php --php-kinds=cdfi --languages=php,javascript --recurse --exclude="\.git" --totals=yes --extra=+qf <CR>
 
 " TAGLIST
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
