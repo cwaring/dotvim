@@ -45,7 +45,7 @@ set t_vb= " visual bell
 set shellcmdflag=-c
 set shell=bash\ -l
 set modeline
-set modelines=5
+set modelines=10
 set tabpagemax=100
 set mousemodel=extend
 set mouse=a
@@ -645,9 +645,9 @@ let g:LustyJugglerSuppressRubyWarning = 1
 
 " EASYTAGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tags=tags;/
 let g:easytags_resolve_links = 1
 let g:easytags_cmd = '/usr/local/bin/ctags'
-set tags=tags;/
 
 " Add RebuildTags function/command
 map <Leader>rt :!/usr/local/bin/ctags --langmap=php:.engine.inc.module.theme.php --php-kinds=cdfi --languages=php,javascript --recurse --exclude="\.git" --totals=yes --extra=+qf <CR>
