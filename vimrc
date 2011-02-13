@@ -354,11 +354,6 @@ if has("autocmd")
   " PHP
   autocmd FileType php set kp=phpdoc
 
-  " only UNIX line endings.
-  autocmd BufNewFile *.* set fileformat=unix
-
-  autocmd BufEnter * :syntax sync fromstart
-
   autocmd BufRead *.py set smartindent cinwords=if,else,elif,for,while,try,except,finally,def,class
 
   autocmd BufRead *.py set iskeyword+=.
@@ -738,6 +733,10 @@ let g:yankring_clipboard_monitor = 1
 " yankring's history
 let g:yankring_paste_check_default_buffer = 1
 
+" CoffeeScript
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let coffee_compile_on_save = 1
+
 " SYNTASTIC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use signs to indicate lines with errors
@@ -781,23 +780,6 @@ function! s:ToggleScratch()
   endif
 endfunction
 nmap <leader><tab> :call <SID>ToggleScratch()<CR>
-
-" BUFEXPLORER
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:bufExplorerSortBy = 'mru'
-let g:bufExplorerSplitBelow = 1
-let g:bufExplorerSplitRight = 1
-let g:bufExplorerDefaultHelp = 0
-let g:bufExplorerShowRelativePath = 1
-
-" MINIBUFEXPL
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
-map <Leader>m :MiniBufExplorer<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FUNCTIONS
