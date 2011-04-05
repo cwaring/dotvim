@@ -67,8 +67,8 @@ set sessionoptions=buffers,folds,tabpages
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set imd
 set wildmenu
-set wildmode=list:longest,full
-set wildignore+=*.o,*~,.lo,*.pyc,*.bak,*.jpg,*.png,*.gif
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*~,.lo,*.pyc,*.bak,*.jpg,*.png,*.gif,*.git,*.rbc
 set whichwrap=b,s,h,l,<,>,~,[,] "everything wraps
 set undolevels=5000
 set autoindent
@@ -118,8 +118,10 @@ set showtabline=1
 " COLORS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-colorscheme ir_black
 set background=dark
+
+let g:solarized_contrast=high
+colorscheme solarized
 hi NonText ctermfg=7 guifg=gray
 hi SpecialKey ctermfg=8
 
@@ -307,9 +309,6 @@ cno $q <C-\>eDeleteTilSlash()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETTINGS PER FILETYPE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin on
-filetype indent on
-
 if has("autocmd")
   " Syntax of these languages is fussy over tabs Vs spaces
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -323,9 +322,9 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.rss setfiletype xml
 
   " markdown
-  augroup mkd
-    autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
-  augroup END
+  au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
+
+  au BufRead,BufNewFile *.txt call s:setupWrapping()
 
   " JSON syntax
   autocmd! BufRead,BufNewFile *.json setfiletype json
@@ -349,7 +348,7 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.install set ft=php
   autocmd BufRead,BufNewFile *.tpl.php set ft=xhtml.php syntax=php
   autocmd BufRead,BufNewFile *.inc set ft=php
-  autocmd BufRead,BufNewFile *tpl.inc set ft=xhtml.php syntax=php
+  autocmd BufRead,BufNewFile *.tpl.inc set ft=xhtml.php syntax=php
 
   " PHP
   autocmd FileType php set kp=phpdoc
@@ -367,6 +366,10 @@ if has("autocmd")
     autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
   endif
 
+  " Less CSS
+    autocmd BufRead,BufNewFile *.less set ft=css syntax=less
+    autocmd BufWritePost master.less :silent !lessc -x % > %:p:r.css
+
   " CSS, XML, and HTML file shoulds be folded based on indent
   au BufNewFile,BufRead *css,*xml,*htm* set foldmethod=indent
 
@@ -379,6 +382,10 @@ if has("autocmd")
     autocmd!
     autocmd BufWritePost * :silent !git wip save "WIP from vim" --editor -- "%"
   augroup END
+
+" load the plugin and indent settings for the detected filetype
+filetype plugin indent on
+
 
   " USE GOOGLE'S JAVASCRIPT LINTER
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -599,7 +606,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "let g:neocomplcache_enable_auto_select = 1
 
 " Shell like behavior(not recommended).
-set completeopt+=longest
+" set completeopt+=longest
 "let g:neocomplcache_enable_auto_select = 1
 "let g:neocomplcache_disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
@@ -785,6 +792,17 @@ nmap <leader><tab> :call <SID>ToggleScratch()<CR>
 " FUNCTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+function s:setupWrapping()
+  set wrap
+  set wm=2
+  set textwidth=72
+endfunction
+
+function s:setupMarkup()
+  call s:setupWrapping()
+  map <buffer> <Leader>p :Mm <CR>
+endfunction
+
 " TOGGLE LINE NUMBER MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! g:ToggleNuMode()
@@ -962,8 +980,8 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has("gui_macvim")
-  "set guifont=EspressoMono-Regular:h12            " Font family and font size.
-  set guifont=Inconsolata:h14
+  set guifont=EspressoMono-Regular:h12            " Font family and font
+  "set guifont=Inconsolata:h14
   "set guifont=menlo:h12
   set fuoptions=maxvert,maxhorz     " fullscreen maximizes vertically AND horizontally
   set antialias                     " MacVim: smooth fonts.
@@ -982,7 +1000,7 @@ if has("gui_macvim")
   set transparency=5
   set formatoptions-=tc
   let macvim_hig_shift_movement = 1
-  colorscheme darkspectrum
+  colorscheme solarized
 
   " bind command-] to shift right
   nmap <D-]> >>
@@ -993,5 +1011,7 @@ if has("gui_macvim")
   nmap <D-[> <<
   vmap <D-[> <<
   imap <D-[> <C-O><<
+else
+  let g:solarized_termcolors=16
 endif
 
