@@ -1,12 +1,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PATHOGEN
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible            " Must come first because it changes other options.
 
 filetype plugin off
 silent! call pathogen#helptags()
 silent! call pathogen#runtime_append_all_bundles()
 
-set nocompatible            " Must come first because it changes other options.
 set cpoptions=aABceFsmq
 set autochdir
 set nostartofline " don't jump to the first character when paging
@@ -89,7 +89,7 @@ set listchars=tab:▸\ ,eol:¬,trail:-
 set showbreak=…
 set encoding=utf-8 fileencodings=.
 set showfulltag
-set completeopt=longest,menuone,preview
+set completeopt=menuone,preview
 set complete=.,w,b,u,t,i
 set iskeyword+=_,-,.
 
@@ -308,6 +308,9 @@ cno $q <C-\>eDeleteTilSlash()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETTINGS PER FILETYPE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" load the plugin and indent settings for the detected filetype
+filetype plugin indent on
+
 if has("autocmd")
   " Syntax of these languages is fussy over tabs Vs spaces
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -359,11 +362,10 @@ if has("autocmd")
   " mapping to mark HTML5 files
   autocmd BufEnter *html nmap <F7> :setfiletype html5<CR>
 
-  if version >= 700
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
-    autocmd FileType css,sass set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-  endif
+  autocmd FileType python set omnifunc=pythoncomplete#Complete
+  autocmd FileType css,sass,stylus set omnifunc=csscomplete#CompleteCSS
+  autocmd BufRead *.styl set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
   " Less CSS
     autocmd BufRead,BufNewFile *.less set ft=css syntax=less
@@ -373,17 +375,13 @@ if has("autocmd")
   au BufNewFile,BufRead *css,*xml,*htm* set foldmethod=indent
 
   " CSS and Sass files should see - as part of a keyword
-  autocmd FileType css,sass set iskeyword +=-
-  au! BufRead,BufNewFile *.sass,*.scss setfiletype sass
+  "autocmd FileType css,stylus,less set iskeyword +=-
 
   " Git WIP
   augroup git-wip
     autocmd!
     autocmd BufWritePost * :silent !git wip save "WIP from vim" --editor -- "%"
   augroup END
-
-" load the plugin and indent settings for the detected filetype
-filetype plugin indent on
 
 
   " USE GOOGLE'S JAVASCRIPT LINTER
