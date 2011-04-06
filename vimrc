@@ -120,7 +120,6 @@ set showtabline=1
 syntax on
 set background=dark
 
-let g:solarized_contrast=high
 colorscheme solarized
 hi NonText ctermfg=7 guifg=gray
 hi SpecialKey ctermfg=8
@@ -980,8 +979,8 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has("gui_macvim")
-  set guifont=EspressoMono-Regular:h12            " Font family and font
-  "set guifont=Inconsolata:h14
+  "set guifont=EspressoMono-Regular:h12            " Font family and font
+  set guifont=Inconsolata:h14
   "set guifont=menlo:h12
   set fuoptions=maxvert,maxhorz     " fullscreen maximizes vertically AND horizontally
   set antialias                     " MacVim: smooth fonts.
@@ -997,7 +996,6 @@ if has("gui_macvim")
 
   "macmenu &File.New\ Tab key=<nop>
   map <D-d> :CommandT<CR>
-  set transparency=5
   set formatoptions-=tc
   let macvim_hig_shift_movement = 1
   colorscheme solarized
