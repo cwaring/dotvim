@@ -898,18 +898,25 @@ function! Compile_JS()
 endfunction
 au FileType javascript command! -buffer C :call Compile_JS()
 
-" STRIP TRAILING WHITESPACE
+" Utility function to perform a command and preserve the history/cursor
+" position
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! StripTrailingWhitespaces()
+function! Preserve(command)
   " Preparation: save last search, and cursor position.
   let _s=@/
   let l = line(".")
   let c = col(".")
   " Do the business:
-  %s/\s\+$//e
+  execute a:command
   " Clean up: restore previous search history, and cursor position
   let @/=_s
   call cursor(l, c)
+endfunction
+
+" STRIP TRAILING WHITESPACE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! StripTrailingWhitespaces()
+  call Preserve('%s/\s\+$//e')
 endfunction
 
 augroup LastModified
@@ -1010,4 +1017,3 @@ if has("gui_macvim")
 else
   let g:solarized_termcolors=16
 endif
-
