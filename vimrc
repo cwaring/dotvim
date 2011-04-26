@@ -539,6 +539,14 @@ nnoremap <leader>a :Ack
 " Use - to open Explore
 nnoremap - :Explore<CR>
 
+" Convert Markdown to HTML
+nmap <leader>md :%!/Users/cw/Dropbox/bin/Markdown.pl --html4tags <CR>
+
+" Close location list when exiting a file
+cabbrev q lcl\|q
+cabbrev q! lcl\|q!
+cabbrev bd lcl\|bd
+cabbrev bd! lcl\|bd!
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -547,13 +555,10 @@ nnoremap - :Explore<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <F4> :GundoToggle<CR>
 
-" Supertab
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType='<c-x><c-o>'
-let g:SuperTabMappingTabLiteral='<a-tab>'
-
 " Neocomplcache
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
@@ -562,22 +567,22 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 " Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
-
-let g:neocomplcache_auto_completion_start_length = 3
-let g:neocomplcache_manual_completion_start_length = 3
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
+  let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" snippets expand key
-imap  <silent><expr><TAB>  neocomplcache#plugin#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<C-e>" : "\<TAB>")
-"imap  <silent><expr><TAB>  neocomplcache#plugin#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-e>"
-smap  <TAB>  <RIGHT><Plug>(neocomplcache_snippets_jump)
-inoremap <expr><C-e>     neocomplcache#complete_common_string(
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -586,13 +591,13 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
@@ -603,19 +608,28 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "let g:neocomplcache_enable_auto_select = 1
 
 " Shell like behavior(not recommended).
-" set completeopt+=longest
+"set completeopt+=longest
 "let g:neocomplcache_enable_auto_select = 1
 "let g:neocomplcache_disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-let g:neocomplcache_omni_patterns = {}
+  let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 " XPTemplates
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -924,7 +938,6 @@ augroup LastModified
   au BufWritePre * :call StripTrailingWhitespaces()
 augroup END
 
-
 " DISPLAY OUTPUT OF SHELL COMMANDS IN SCRATCH BUFFER
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -946,7 +959,6 @@ function! s:RunShellCommand(cmdline)
   botright new
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   silent execute '$read !'. expanded_cmdline
-  1
 endfunction
 
 func! Cwd()
@@ -1017,3 +1029,4 @@ if has("gui_macvim")
 else
   let g:solarized_termcolors=16
 endif
+
