@@ -68,7 +68,7 @@ set sessionoptions=buffers,folds,tabpages
 set imd
 set wildmenu
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*~,.lo,*.pyc,*.bak,*.jpg,*.png,*.gif,*.git,*.rbc
+set wildignore+=*.o,*~,.lo,*.pyc,*.bak,*.git,*.rbc
 set whichwrap=b,s,h,l,<,>,~,[,] "everything wraps
 set undolevels=5000
 set autoindent
@@ -538,9 +538,6 @@ nnoremap <leader>a :Ack
 
 " Use - to open Explore
 nnoremap - :Explore<CR>
-
-" Convert Markdown to HTML
-nmap <leader>md :%!/Users/cw/Dropbox/bin/Markdown.pl --html4tags <CR>
 
 " Close location list when exiting a file
 cabbrev q lcl\|q
