@@ -40,9 +40,6 @@
 [submodule "bundle/vim-matchit"]
 	path = bundle/vim-matchit
 	url = git://github.com/edsono/vim-matchit.git
-[submodule "bundle/vim-mustache"]
-	path = bundle/vim-mustache
-	url = git://github.com/jc00ke/mustache.vim.git
 [submodule "bundle/vim-nerdcommenter"]
 	path = bundle/vim-nerdcommenter
 	url = git://github.com/jc00ke/nerdcommenter.git
