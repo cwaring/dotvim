@@ -391,7 +391,7 @@ if has("autocmd")
 
   " SAVE FILES WHEN VIM LOSES FOCUS
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  au FocusLost *.htm*,*.js,*.css,*.php :wa
+  au FocusLost *.htm*,*.js,*.css,*.php,*.styl :wa
 
 endif
 
@@ -759,7 +759,6 @@ let coffee_compile_on_save = 1
 if has('signs')
   let g:syntastic_enable_signs = 1
 endif
-"let g:syntastic_enable_signs = 1
 
 " automatically open the location list when a buffer has errors
 let g:syntastic_auto_loc_list = 1
@@ -767,8 +766,13 @@ let g:syntastic_auto_loc_list = 1
 " always show warnings
 let g:syntastic_quiet_warnings = 0
 
+" auto jump to errors upon opening/saving
+let g:syntastic_auto_jump=1
+
 " ignore djangohtml
 let g:syntastic_disabled_filetypes = ['htmldjango', 'txt', 'text', 'tumblr', 'css', 'html5']
+
+let g:syntastic_jsl_conf = '~/bin/dotfiles/vim/jsl.conf'
 
 " FUGITIVE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
