@@ -657,10 +657,10 @@ let g:LustyJugglerSuppressRubyWarning = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set tags=tags;/
 let g:easytags_resolve_links = 1
-let g:easytags_cmd = '/usr/local/bin/ctags'
+let g:easytags_cmd = '/opt/local/bin/ctags'
 
 " Add RebuildTags function/command
-map <Leader>rt :!/usr/local/bin/ctags --langmap=php:.engine.inc.module.theme.php --php-kinds=cdfi --languages=php,javascript --recurse --exclude="\.git" --totals=yes --extra=+qf <CR>
+map <Leader>rt :!/opt/local/bin/ctags --langmap=php:.engine.inc.module.theme.php --php-kinds=cdfi --languages=php,javascript --recurse --exclude="\.git" --totals=yes --extra=+qf <CR>
 
 " TAGLIST
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -672,7 +672,7 @@ let Tlist_WinWidth = 40
 let Tlist_Exit_OnlyWindow = 1
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Sort_Type = 'name'
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+let Tlist_Ctags_Cmd = '/opt/local/bin/ctags'
 let Tlist_Show_Menu = 1
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Close_On_Select = 1
