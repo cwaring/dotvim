@@ -118,9 +118,7 @@ set showtabline=1
 " COLORS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-set background=dark
 
-colorscheme solarized
 hi NonText ctermfg=7 guifg=gray
 hi SpecialKey ctermfg=8
 
@@ -368,8 +366,8 @@ if has("autocmd")
   autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
   " Less CSS
-    autocmd BufRead,BufNewFile *.less set ft=css syntax=less
-    autocmd BufWritePost master.less :silent !lessc -x % > %:p:r.css
+  autocmd BufRead,BufNewFile *.less set ft=css syntax=less
+  autocmd BufWritePost master.less :silent !lessc -x % > %:p:r.css
 
   " CSS, XML, and HTML file shoulds be folded based on indent
   au BufNewFile,BufRead *css,*xml,*htm* set foldmethod=indent
@@ -383,11 +381,6 @@ if has("autocmd")
     autocmd BufWritePost * :silent !git wip save "WIP from vim" --editor -- "%"
   augroup END
 
-
-  " USE GOOGLE'S JAVASCRIPT LINTER
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  au BufNewFile,BufRead *.js set makeprg=gjslint\ %
-  au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyles%s,%-Gscript\ can\ %s,%-G
 
   " SAVE FILES WHEN VIM LOSES FOCUS
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -664,20 +657,20 @@ map <Leader>rt :!/opt/local/bin/ctags --langmap=php:.engine.inc.module.theme.php
 
 " TAGLIST
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let Tlist_Use_Right_Window = 1
-let Tlist_Auto_Open = 0
-let Tlist_Enable_Fold_Column = 0
-let Tlist_Compact_Format = 1
-let Tlist_WinWidth = 40
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_File_Fold_Auto_Close = 1
-let Tlist_Sort_Type = 'name'
-let Tlist_Ctags_Cmd = '/opt/local/bin/ctags'
-let Tlist_Show_Menu = 1
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Close_On_Select = 1
-let Tlist_Auto_Update = 1
-nnoremap <silent> <Leader>t :TlistToggle<CR>
+"let Tlist_Use_Right_Window = 1
+"let Tlist_Auto_Open = 0
+"let Tlist_Enable_Fold_Column = 0
+"let Tlist_Compact_Format = 1
+"let Tlist_WinWidth = 40
+"let Tlist_Exit_OnlyWindow = 1
+"let Tlist_File_Fold_Auto_Close = 1
+"let Tlist_Sort_Type = 'name'
+"let Tlist_Ctags_Cmd = '/opt/local/bin/ctags'
+"let Tlist_Show_Menu = 1
+"let Tlist_GainFocus_On_ToggleOpen = 1
+"let Tlist_Close_On_Select = 1
+"let Tlist_Auto_Update = 1
+"nnoremap <silent> <Leader>t :TlistToggle<CR>
 
 " RAGTAG
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -803,7 +796,6 @@ nmap <leader><tab> :call <SID>ToggleScratch()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FUNCTIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function s:setupWrapping()
   set wrap
   set wm=2
@@ -1005,7 +997,7 @@ if has("gui_macvim")
   set encoding=utf-8                " Use UTF-8 everywhere.
   set guioptions-=T                 " Hide toolbar.
 
-  "set lines=45 columns=145          " Window dimensions.
+  set lines=50 columns=145          " Window dimensions.
   set guioptions+=e
   set guioptions-=r                 " Don't show right scrollbar
   set guioptions-=R                 " Don't show right scrollbar
@@ -1016,6 +1008,8 @@ if has("gui_macvim")
   map <D-d> :CommandT<CR>
   set formatoptions-=tc
   let macvim_hig_shift_movement = 1
+
+  set background=dark
   colorscheme solarized
 
   " bind command-] to shift right
@@ -1028,6 +1022,8 @@ if has("gui_macvim")
   vmap <D-[> <<
   imap <D-[> <C-O><<
 else
-  let g:solarized_termcolors=16
+  set background=dark
+  let g:solarized_termcolors=256
+  colorscheme solarized
 endif
 
