@@ -21,7 +21,7 @@
 	url = git://github.com/hostsamurai/CSSMinister.vim.git
 [submodule "bundle/vim-command-t"]
 	path = bundle/vim-command-t
-	url = git://git.wincent.com/command-t.git
+	url = git://github.com/wincent/Command-T.git
 [submodule "bundle/vim-conque"]
 	path = bundle/vim-conque
 	url = git://github.com/rson/vim-conque.git

@@ -13,12 +13,12 @@ set nostartofline " don't jump to the first character when paging
 set title
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set ttyfast
-let mapleader = ','
-let g:mapleader = ','
-let localleader = ','
-let g:localleader = ','
-let leader = ','
-let g:leader = ','
+let mapleader = '\'
+let g:mapleader = '\'
+let localleader = '\'
+let g:localleader = '\'
+let leader = '\'
+let g:leader = '\'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DISPLAY
@@ -56,6 +56,7 @@ set magic
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set report=0
 set smartcase
+set timeoutlen=500
 au CursorMovedI * if pumvisible() == 0|pclose|endif
 au InsertLeave * if pumvisible() == 0|pclose|endif
 
@@ -698,6 +699,11 @@ let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeSortOrder = ['\/$', '*']
 let g:NERDTreeShowLineNumbers = 1
 
+" COMMAND-T
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <Leader>t :CommandT<CR>
+nmap <silent> <Leader>b :CommandTBuffer<CR>
+
 " YANKRING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <Leader>y :YRShow<CR>
@@ -744,6 +750,10 @@ let g:yankring_paste_check_default_buffer = 1
 " CoffeeScript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let coffee_compile_on_save = 1
+let coffee_make_options = "--lint"
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+" compile to file
+au BufWritePost *.coffee silent CoffeeMake! | cwindow | redraw!
 
 " SYNTASTIC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -983,6 +993,30 @@ endfunc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+" ------------------------------------------------------------------
+" Solarized Colorscheme Config
+" ------------------------------------------------------------------
+let g:solarized_contrast="high"    "default value is normal
+let g:solarized_visibility="low"    "default value is normal
+syntax enable
+set background=dark
+colorscheme solarized
+" ------------------------------------------------------------------
+
+" The following items are available options, but do not need to be
+" included in your .vimrc as they are currently set to their defaults.
+
+" let g:solarized_termtrans=1
+" let g:solarized_degrade=0
+" let g:solarized_bold=1
+" let g:solarized_underline=1
+" let g:solarized_italic=1
+" let g:solarized_termcolors=16
+" let g:solarized_diffmode="normal"
+" let g:solarized_hitrail=0
+" let g:solarized_menu=1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI Stuff
