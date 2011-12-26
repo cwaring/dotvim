@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/cw/Sites/projects/talis/kasabi/docroot/sites/all/themes/kasabi_1x/lib/kpack'
+let g:netrw_dirhist_2='/Users/cw/Sites/projects/talis/kasabi/docroot/sites/all/modules/custom/kasabi_d3'
+let g:netrw_dirhist_3='/Users/cw/Sites/projects/talis/kasabi/docroot/sites/all/modules/custom/kasabi_d3/views'
+let g:netrw_dirhist_4='/Users/cw/Sites/projects/talis/kasabi/docroot/sites/all/modules/custom/kasabi_d3/js'
+let g:netrw_dirhist_5='/Users/cw/Dropbox/bin/dotfiles/bash'
+let g:netrw_dirhist_6='/Users/cw/Sites/projects/talis/kasabi/docroot/sites/all/modules/custom/kasabi_d3'
+let g:netrw_dirhist_7='/Users/cw/Sites/projects/talis/kasabi/docroot/sites/all/modules/custom/kasabi_d3/views'
+let g:netrw_dirhist_8='/Users/cw/Sites/projects/FoundSound/www/css'
+let g:netrw_dirhist_9='/Users/cw/Sites/projects/FoundSound/www'
