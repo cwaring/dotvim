@@ -8,7 +8,7 @@ silent! call pathogen#helptags()
 silent! call pathogen#runtime_append_all_bundles()
 
 set cpoptions=aABceFsmq
-set autochdir
+"set autochdir
 set nostartofline " don't jump to the first character when paging
 set title
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
@@ -544,7 +544,7 @@ cabbrev bd! lcl\|bd!
 
 " GUNDO
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <F4> :GundoToggle<CR>
+nnoremap <Leader>g :GundoToggle<CR>
 
 " Neocomplcache
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -582,7 +582,7 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
