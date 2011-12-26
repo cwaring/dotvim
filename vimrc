@@ -459,12 +459,12 @@ nmap <silent> <leader>sc :set nolist!<CR>
 " Up/down go visually instead of by physical lines
 " Interactive ones need to check whether we're in the autocomplete popup
 map <up> gk
-"inoremap <up> <C-R>=pumvisible() ? "\<lt>up>" : "\<lt>C-o>gk"<Enter>
+inoremap <up> <C-R>=pumvisible() ? "\<lt>up>" : "\<lt>C-o>gk"<Enter>
 map <down> gj
-"inoremap <down> <C-R>=pumvisible() ? "\<lt>down>" : "\<lt>C-o>gj"<Enter>
+inoremap <down> <C-R>=pumvisible() ? "\<lt>down>" : "\<lt>C-o>gj"<Enter>
 
 " Map normal mode Enter to add a new line before the current one
-nmap <Enter> O<Esc>
+"nmap <Enter> O<Esc>
 
 " Makes ; work for :
 nnoremap ; :
