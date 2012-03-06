@@ -106,10 +106,7 @@
 [submodule "bundle/vim-indent-object"]
 	path = bundle/vim-indent-object
 	url = git://github.com/michaeljsmith/vim-indent-object.git
-[submodule "bundle/vim-supertab"]
-	path = bundle/vim-supertab
-	url = git://github.com/ervandew/supertab.git
-[submodule "bundle/vim-snipmate"]
+[submodule "bundle/vim-SNipmate"]
 	path = bundle/vim-snipmate
 	url = git://github.com/msanders/snipmate.vim.git
 [submodule "bundle/vim-powerline"]
