@@ -656,7 +656,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_quiet_warnings = 0
 
 " auto jump to errors upon opening/saving
-let g:syntastic_auto_jump=1
+let g:syntastic_auto_jump=0
 
 " ignore djangohtml
 let g:syntastic_disabled_filetypes = ['htmldjango', 'txt', 'text', 'tumblr', 'css', 'html5']
